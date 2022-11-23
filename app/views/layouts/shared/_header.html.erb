@@ -1,0 +1,25 @@
+<header>
+  <span>
+    <%= link_to "TwitterlikeApp", root_path %>
+  </span>
+  <br>
+  <span>
+    <%= link_to "About", about_path %>
+  </span>
+  <br>
+  <span>
+    <%= link_to "Contact", contact_path %>
+  </span>
+  <br>
+
+  <% if user_signed_in? %>
+    <span>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+    </span>
+  <% else %>
+    <span>
+      <%= link_to "Log in", sign_in_path %>
+    </span>
+  <% end %>
+
+</header>
