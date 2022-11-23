@@ -9,3 +9,9 @@
 # #
 # two: {}
 # # column: value
+
+homer:
+  email: homer@simpsons.com
+
+marge:
+  email: marge@simpsons.com

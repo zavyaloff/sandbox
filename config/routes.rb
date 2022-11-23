@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     authenticated :user do
       root to: "users#show", as: :authenticated_root
       get '/user', to: "users#show"
+      resources :microposts
     end
 
     unauthenticated do
