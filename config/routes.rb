@@ -16,8 +16,10 @@ Rails.application.routes.draw do
     get '/sign_in', to: 'devise/sessions#new'
     get '/sign_up', to: 'devise/registrations#new'
     get '/reset_password', to: 'devise/passwords#new'
+    get 'users/:id', to: 'users#show', as: :users
     get '/user', to: 'devise/sessions#new'
     get '/user/edit', to: 'devise/sessions#new'
+    resources :users
   end
 
   get '/about', to: 'static_pages#about'

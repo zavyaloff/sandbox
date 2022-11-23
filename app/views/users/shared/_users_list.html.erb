@@ -1,0 +1,13 @@
+<% if @users.present? %>
+  <ol>
+  <% @users.each do |user| %>
+    <li>
+      <span><%= link_to user.email, users_path(user.id) %></span> <br>
+    </li>  
+  <% end %>
+  </ol>
+<% else %>
+  <span>
+    There is no users!
+  </span>
+<% end %>
