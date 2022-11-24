@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :micropost
@@ -5,6 +7,5 @@ class Comment < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
   validates :micropost_id, presence: true
-  validates :content, presence: true, length: {maximum: 150}
-
+  validates :content, presence: true, length: { maximum: 150 }
 end

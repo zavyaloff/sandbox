@@ -1,17 +1,18 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   devise_for :users
 
   authenticated :user do
-    root to: "users#show", as: :authenticated_root
-    get '/user', to: "users#show"
+    root to: 'users#show', as: :authenticated_root
+    get '/user', to: 'users#show'
     resources :microposts do
       resources :comments, shallow: true
     end
   end
 
   unauthenticated do
-    root to: "static_pages#home"
+    root to: 'static_pages#home'
   end
 
   devise_scope :user do
@@ -30,5 +31,4 @@ Rails.application.routes.draw do
   match '*unmatched', to: 'application#route_not_found', via: :all
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
 end

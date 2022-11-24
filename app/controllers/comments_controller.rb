@@ -1,14 +1,13 @@
-class CommentsController < ApplicationController
+# frozen_string_literal: true
 
+class CommentsController < ApplicationController
   before_action :logged_in_user
   before_action :comment_creator_right, only: :destroy
   before_action :find_comment, only: :destroy
 
-  def index
-  end
+  def index; end
 
-  def show
-  end
+  def show; end
 
   def create
     @micropost = Micropost.find(params[:micropost_id])
@@ -16,22 +15,19 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     if @comment.save
       flash[:notice] = 'Comment successfully created'
-      redirect_to users_path(@micropost.user_id)
     else
       flash[:alert] = 'Comment can not be created'
-      redirect_to users_path(@micropost.user_id)
     end
+    redirect_to users_path(@micropost.user_id)
   end
 
-  def edit
-  end
+  def edit; end
 
-  def update
-  end
+  def update; end
 
   def destroy
     @comment.destroy
-    flash[:notice] = "Comment deleted"
+    flash[:notice] = 'Comment deleted'
     redirect_back(fallback_location: root_path)
   end
 
@@ -45,7 +41,7 @@ class CommentsController < ApplicationController
     if current_user.present?
       @comment = Micropost.find_by(id: params[:micropost_id])
     else
-      flash[:alert] = "You need to sign in for viewing, creating or changing ingestions"
+      flash[:alert] = 'You need to sign in for viewing, creating or changing ingestions'
       redirect_to sign_in_path
     end
   end
@@ -59,15 +55,15 @@ class CommentsController < ApplicationController
   end
 
   def comment_creator
-    if current_user.present? && @comment.present?
-      current_user.id == @comment.user_id
-    end
+    return unless current_user.present? && @comment.present?
+
+    current_user.id == @comment.user_id
   end
 
   def comment_creator_right
-    unless comment_creator
-      flash[:alert] = "You need to be a creator for destroying comments"
-      redirect_back(fallback_location: root_path)
-    end
+    return if comment_creator
+
+    flash[:alert] = 'You need to be a creator for destroying comments'
+    redirect_back(fallback_location: root_path)
   end
 end
