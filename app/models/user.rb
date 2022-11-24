@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :microposts
+  has_many :comments
 
   def feed
     Micropost.where("user_id = ?", id)

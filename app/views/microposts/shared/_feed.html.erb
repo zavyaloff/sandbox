@@ -1,21 +1,25 @@
 <% if @microposts.present? %>
   <ol>
-  <% @microposts.each_slice(1) do |microposts| %>
+  <% @microposts.each do |micropost| %>
     <li>
-      <% microposts.map do |micropost| %>
-        
-          <span> Post # <%= micropost.id %> by </span>
-          <span ><%= link_to micropost.user.email %></span> <br>
-          <span ><%= micropost.content %></span> <br>
-          <span >
-            Posted at <%= micropost.created_at.getlocal.strftime("%H:%M %d.%m.%y") %>.
-          </span> <br>
-          <span><%= link_to "Delete", micropost, method: :delete,
-                                               action: :destroy,
-                                               data: { confirm: "Are you sure?" } %></span>
-        </li>
+      <span> Post # <%= micropost.id %> by </span>
+      <span ><%= link_to micropost.user.email %></span> <br>
+      <span ><%= micropost.content %></span> <br>
+      <span >
+        Posted at <%= micropost.created_at.getlocal.strftime("%H:%M %d.%m.%y") %>.
+      </span> <br>
+      <span><%= link_to "Delete", micropost, method: :delete,
+                                           action: :destroy,
+                                           data: { confirm: "Are you sure?" } %></span>
+      <% if micropost.comments.present? %>
+        <section>
+          <%= render 'comments/shared/feed', micropost: micropost %>
+        </section>
       <% end %>
-    
+      <section>
+        <%= render 'comments/shared/comment_form', micropost: micropost %>
+      </section>
+    </li>
   <% end %>
   </ol>
 <% else %>

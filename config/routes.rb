@@ -2,15 +2,17 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-    authenticated :user do
-      root to: "users#show", as: :authenticated_root
-      get '/user', to: "users#show"
-      resources :microposts
+  authenticated :user do
+    root to: "users#show", as: :authenticated_root
+    get '/user', to: "users#show"
+    resources :microposts do
+      resources :comments, shallow: true
     end
+  end
 
-    unauthenticated do
-      root to: "static_pages#home"
-    end
+  unauthenticated do
+    root to: "static_pages#home"
+  end
 
   devise_scope :user do
     get '/sign_in', to: 'devise/sessions#new'
